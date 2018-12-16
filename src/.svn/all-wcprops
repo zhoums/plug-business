@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/media-cms-core/!svn/ver/792/trunk/code/source/plugin/crx-daren/src
+END
+config.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/media-cms-core/!svn/ver/842/trunk/code/source/plugin/crx-daren/src/config.js
+END
+content.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/media-cms-core/!svn/ver/792/trunk/code/source/plugin/crx-daren/src/content.js
+END
+setPlugCookie.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/media-cms-core/!svn/ver/842/trunk/code/source/plugin/crx-daren/src/setPlugCookie.js
+END
+util.js
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/media-cms-core/!svn/ver/416/trunk/code/source/plugin/crx-daren/src/util.js
+END
+eventPage.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/src/eventPage.js
+END
+checkVersion.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/media-cms-core/!svn/ver/764/trunk/code/source/plugin/crx-daren/src/checkVersion.js
+END

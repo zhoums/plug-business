@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "molimediagroup",
+  "description": "",
+  "version": "1.1.5",
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "browser_action": {
+    "default_title": "molimediagroup1.0",
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "cookies",
+    "webRequest",
+    "webRequestBlocking",
+    "tabs",
+    "downloads",
+    "storage",
+    "unlimitedStorage",
+    "background",
+    "*://*.taobao.com/*",
+    "http://molitest.willbe.net.cn/*",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [{
+    "matches": ["http:// *.willbe.net.cn/*", "http://*.ittun.com/*"],
+    "js": ["js/jquery.min.js", "content.js"]
+  }]
+}
