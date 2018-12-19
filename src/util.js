@@ -33,3 +33,13 @@ export default {
     }
   }
 }
+
+export const getDateRange = (days = 0) => {
+  let now = new Date().getTime();
+  let target = new Date(now - days * 24 * 60 * 60 * 1000);
+  let month = target.getMonth() + 1;
+  month = month > 9 ? month : "0" + month;
+  let format = target.getFullYear() + '-' + month + "-" + target.getDate();
+  return format;
+
+}
