@@ -68,6 +68,7 @@ const checkLogin = () => {
     })
   })
 }
+//从淘宝取回需要爬的数据
 const getDataFromSycm = (contentId, dateFrom, dateTo) => {
   let tk = util.generatTk(9);
   return new Promise((resolve, reject) => {
@@ -86,9 +87,9 @@ const getDataFromSycm = (contentId, dateFrom, dateTo) => {
     })
   })
 }
-let getContentIdPages = 1; //取ContentId时的总页数
+let getContentIdPages = 0; //取ContentId时的总页数
 let getContentIdLength = 0; //取ContentId时的总页数
-const getContentId = (shopId, loginUserId, mainUserId, token, page = 1, pageSize = 50) => {
+const getContentId = (shopId, loginUserId, mainUserId, token, page = 1, pageSize = 20) => {
   let beginDay = getDateRange(10);
   let endDay = getDateRange(2);
   let contenId = [];
@@ -109,23 +110,22 @@ const getContentId = (shopId, loginUserId, mainUserId, token, page = 1, pageSize
     },
     success(res) {
       if (res.status === 0) {
-        // getDataFromSycm
-        // conso
-        getContentIdLength = res.result.contetnIds.length
+        if (res.result.contetnIds.length > 0) {
+          getContentIdPages++;
+        }
+        getContentIdLength = res.result.contetnIds.length > 0 ? res.result.contetnIds.length : -1;
+        // if (res.result.contetnIds.length == 0) {
+        //   console.log('这一面没数据了')
+        //   alert('这一面没数据了')
+        //   return;
+        // }
         res.result.contetnIds.forEach((item, key) => {
           getDataFromSycm(item, res.result.dateFrom, res.result.dateTo).then((data) => {
-            postContentData(loginUserId, mainUserId, data, token)
+            postContentData(loginUserId, mainUserId, data, token);
           })
         })
-        // contenId = [...contenId, ...res.result.contetnIds];
-        // getContentIdLength = res.result.contetnIds.length
-
-        // getContentIdPages = Math.ceil(res.result.data.recordCount / pageSize);
-        // res.content.data.data.forEach((item, key) => {
-        //   contenId = [...contenId, item.contentId]
-        // })
       } else {
-        getContentIdLength = 0
+        getContentIdLength = -1
       }
     }
   })
@@ -137,7 +137,7 @@ const postShopData = (param, token) => {
       url: `${moli_host}/mer/syncPersonalInfo.wb`,
       type: 'post',
       headers: {
-        version: '1.1.4',
+        version: '1.0.0',
         vs: '1',
         tk: token
       },
@@ -155,6 +155,7 @@ const postShopData = (param, token) => {
 }
 const postContentData = (loginUserId, mainUserId, dataList, token) => {
   let _itemList = [];
+  console.log('postContentData - getContentIdPages', getContentIdPages)
   _itemList.push(dataList)
   $.ajax({
     url: `${moli_host}/mer/syncMerEffect.wb`,
@@ -164,6 +165,7 @@ const postContentData = (loginUserId, mainUserId, dataList, token) => {
       vs: '1',
       tk: token,
     },
+    // async: false,
     type: 'post',
     data: JSON.stringify({
       loginUserId,
@@ -171,7 +173,7 @@ const postContentData = (loginUserId, mainUserId, dataList, token) => {
       itemList: _itemList
     }),
     success(res) {
-      console.log(res);
+      console.log('postContentData', res, getContentIdLength);
     }
   })
 }
@@ -179,78 +181,67 @@ const postContentData = (loginUserId, mainUserId, dataList, token) => {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
   if (request.greeting == 'business') {
-    let _tk = request.tk;
-    let shopId = request.shopId;
-    //检查参谋是否登录，未登录弹出提示，已登录开始爬数据
-    checkLogin().then((res) => {
-      // let colectContentIdByPage = []; //收集每个分页的congentid；
-      // //先跑一页，确定总页数，再根据总页数循环
-      // let pageOneContentId = getContentId();
-      // colectContentIdByPage = [...colectContentIdByPage, ...pageOneContentId];
-      // console.log('getContentIdPages', getContentIdPages, colectContentIdByPage)
-      // let i = 2;
-      // while (i <= getContentIdPages) {
-      //   let pageI_ContentId = getContentId(i);
-      //   colectContentIdByPage = [...colectContentIdByPage, ...pageI_ContentId];
-      //   console.log(i)
-      //   i++;
-      //   util.sleep(Math.random() * (100 - 20) + 20);
-      // }
-      loginUserId = res.loginUserId;
-      mainUserId = res.mainUserId;
 
-      postShopData(res, _tk).then((res) => {
-        let colectContentIdByPage = []; //收集每个分页的congentid；
-        //先跑一页，确定总页数，再根据总页数循环
-        let pageOneContentId = getContentId(shopId, loginUserId, mainUserId, _tk);
-        colectContentIdByPage = [...colectContentIdByPage, ...pageOneContentId];
-        let i = 2;
-        while (getContentIdLength > 0) {
-          let pageI_ContentId = getContentId(shopId, loginUserId, mainUserId, _tk, i);
-          colectContentIdByPage = [...colectContentIdByPage, ...pageI_ContentId];
-          i++;
-          util.sleep(Math.random() * (100 - 20) + 20);
-        }
-      }).catch(() => {
-        alert('同步商家信息出错。')
-      })
-      // $.ajax({
-      //   url: `${moli_host}/mer/syncPersonalInfo.wb`,
-      //   type: 'post',
-      //   headers: {
-      //     version: '1.1.4',
-      //     vs: '1',
-      //     tk: '0000000000000'
-      //   },
-      //   async: false,
-      //   data: res,
-      //   success(response) {
-      //     console.log(response);
-      //   }
+    chrome.tabs.getSelected(null, function(tab) {
+      let tabId = tab.id
       // })
+      let _tk = request.tk;
+      alert('tabId:' + tabId)
+      let shopId = request.shopId;
+      //检查参谋是否登录，未登录弹出提示，已登录开始爬数据
+      checkLogin().then((res) => {
+        loginUserId = res.loginUserId;
+        mainUserId = res.mainUserId;
 
+        postShopData(res, _tk).then((res) => {
+          //触发插件运行提示
+          chrome.tabs.sendRequest(tabId, {
+            greeting: "showRuning"
+          });
+          let colectContentIdByPage = []; //收集每个分页的congentid；
+          let mainFn = function() {
 
-      // getDataFromSycm().then((data) => {
-      //   let {
-      //     browsePv,
-      //     browseUv,
-      //     contentGuideShopPv,
-      //     contentGuideShopUv,
-      //     contentGuideCartByr,
-      //     contentGuideCartQty,
-      //     contentGuideCltCnt,
-      //     contentGuidePayOrdByr,
-      //     contentGuidePayOrdCnt,
-      //     contentGuidePayOrdAmt
-      //   } = data;
-      //   console.log('get by business:', browsePv, contentGuideShopPv)
-      // }).catch((reason) => {
-      //   console.log('catch:', reason);
-      // })
-    }).catch((reason) => {
-      alert('请先登录生意参谋。')
-      console.log('catch:', reason);
-    });
+          }
+          mainFn();
+
+          //先跑一页，确定总页数，再根据总页数循环
+          let pageOneContentId = getContentId(shopId, loginUserId, mainUserId, _tk);
+          colectContentIdByPage = [...colectContentIdByPage, ...pageOneContentId];
+          let i = 2;
+          console.log('i:', i)
+          while (getContentIdLength >= 0) {
+            console.log('ll', getContentIdLength)
+            console.log('getContentIdLength:', getContentIdLength, i, getContentIdPages)
+            if (getContentIdLength == 0) {
+              setTimeout(function() {
+                console.log('trigger close')
+                // chrome.tabs.sendRequest(tabId, {
+                //   greeting: "hideRuning"
+                // });
+              }, 600000000 * 5)
+              return;
+            }
+            let pageI_ContentId = getContentId(shopId, loginUserId, mainUserId, _tk, i);
+            colectContentIdByPage = [...colectContentIdByPage, ...pageI_ContentId];
+            i++;
+            util.sleep(Math.random() * (100 - 20) + 20);
+          }
+          console.log('getContentIdLength-----:', getContentIdLength)
+          if (getContentIdLength == -1) {
+            chrome.tabs.sendRequest(tabId, {
+              greeting: "hideRuning"
+            });
+          }
+
+        }).catch(() => {
+          alert('同步商家信息出错。')
+        })
+      }).catch((reason) => {
+        sendResponse();
+        alert('请先登录生意参谋。')
+        console.log('catch:', reason);
+      });
+    })
   }
   return
 

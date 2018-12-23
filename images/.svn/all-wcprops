@@ -1,35 +1,23 @@
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/media-cms-core/!svn/ver/410/trunk/code/source/plugin/crx-daren/images
+V 72
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/images
 END
 .DS_Store
 K 25
 svn:wc:ra_dav:version-url
-V 84
-/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/images/.DS_Store
-END
-step-g.png
-K 25
-svn:wc:ra_dav:version-url
-V 85
-/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/images/step-g.png
+V 82
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/images/.DS_Store
 END
 icon_bl.png
 K 25
 svn:wc:ra_dav:version-url
-V 86
-/svn/media-cms-core/!svn/ver/410/trunk/code/source/plugin/crx-daren/images/icon_bl.png
+V 84
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/images/icon_bl.png
 END
 icon.png
 K 25
 svn:wc:ra_dav:version-url
-V 83
-/svn/media-cms-core/!svn/ver/410/trunk/code/source/plugin/crx-daren/images/icon.png
-END
-step-b.png
-K 25
-svn:wc:ra_dav:version-url
-V 85
-/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/images/step-b.png
+V 81
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/images/icon.png
 END

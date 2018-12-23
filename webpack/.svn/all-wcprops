@@ -1,35 +1,35 @@
 K 25
 svn:wc:ra_dav:version-url
-V 75
-/svn/media-cms-core/!svn/ver/441/trunk/code/source/plugin/crx-daren/webpack
+V 73
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack
 END
 common-dev.js
 K 25
 svn:wc:ra_dav:version-url
-V 89
-/svn/media-cms-core/!svn/ver/441/trunk/code/source/plugin/crx-daren/webpack/common-dev.js
+V 87
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack/common-dev.js
 END
 prod.js
 K 25
 svn:wc:ra_dav:version-url
-V 83
-/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/webpack/prod.js
+V 81
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack/prod.js
 END
 common.js
 K 25
 svn:wc:ra_dav:version-url
-V 85
-/svn/media-cms-core/!svn/ver/428/trunk/code/source/plugin/crx-daren/webpack/common.js
+V 83
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack/common.js
 END
 local.js
 K 25
 svn:wc:ra_dav:version-url
-V 84
-/svn/media-cms-core/!svn/ver/348/trunk/code/source/plugin/crx-daren/webpack/local.js
+V 82
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack/local.js
 END
 dev.js
 K 25
 svn:wc:ra_dav:version-url
-V 82
-/svn/media-cms-core/!svn/ver/441/trunk/code/source/plugin/crx-daren/webpack/dev.js
+V 80
+/svn/media-cms-core/!svn/ver/885/trunk/code/source/plugin/crx-mer/webpack/dev.js
 END
